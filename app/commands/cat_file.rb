@@ -1,9 +1,12 @@
-require "zlib"
+# frozen_string_literal: true
 
+require 'zlib'
+
+# Commands module
 module Commands
   def self.cat_file(sub_command, hash)
     case sub_command
-    when "-p"
+    when '-p'
       pretty_print(hash)
     else
       puts "Unknown sub-command: #{sub_command}"
@@ -11,9 +14,9 @@ module Commands
   end
 
   def self.pretty_print(file_path)
-    file_path = ".git/objects/#{file_path[0..1]}/#{file_path[2..-1]}"
+    file_path = ".git/objects/#{file_path[0..1]}/#{file_path[2..]}"
     if File.exist?(file_path)
-      content = Zlib::Inflate.inflate(File.read(file_path)).sub(/^blob \d+\0/, "")
+      content = Zlib::Inflate.inflate(File.read(file_path)).sub(/^blob \d+\0/, '')
       print content
       $stdout.flush
     else
