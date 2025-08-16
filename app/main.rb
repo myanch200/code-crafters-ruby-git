@@ -1,16 +1,16 @@
-# You can use print statements as follows for debugging, they'll be visible when running tests.
-$stderr.puts "Logs from your program will appear here!"
+# frozen_string_literal: true
+
+require_relative "commands/init"
+require_relative "commands/cat_file"
 
 # Uncomment this block to pass the first stage
 #
 command = ARGV[0]
 case command
 when "init"
-  Dir.mkdir(".git")
-  Dir.mkdir(".git/objects")
-  Dir.mkdir(".git/refs")
-  File.write(".git/HEAD", "ref: refs/heads/main\n")
-  puts "Initialized git directory"
+  Commands.init
+when "cat-file"
+  Commands.cat_file(ARGV[1], ARGV[2])
 else
   raise RuntimeError.new("Unknown command #{command}")
 end
