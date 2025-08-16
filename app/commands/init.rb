@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Commands
-  def init
+  def self.init
     # Create the necessary directories and files for a basic git repository
     Dir.mkdir(".git") unless Dir.exist?(".git")
     Dir.mkdir(".git/objects") unless Dir.exist?(".git/objects")

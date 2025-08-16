@@ -14,7 +14,8 @@ module Commands
     file_path = ".git/objects/#{file_path[0..1]}/#{file_path[2..-1]}"
     if File.exist?(file_path)
       content = Zlib::Inflate.inflate(File.read(file_path)).sub(/^blob \d+\0/, "")
-      puts content
+      print content
+      $stdout.flush
     else
       puts "File not found: #{file_path}"
     end
