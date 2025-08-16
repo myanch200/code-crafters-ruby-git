@@ -14,6 +14,12 @@ module Commands
     content = File.read(file_path)
     blob = "blob #{content.bytesize}\0#{content}"
     sha = Digest::SHA1.hexdigest(blob)
-    File.write(".git/objects/#{sha[0..1]}/#{sha[2..-1]}", Zlib::Deflate.deflate(blob))
+    dir = ".git/objects/#{sha[0..1]}"
+    Dir.mkdir(dir) unless Dir.exist?(dir)
+    File.open(".git/objects/#{sha[0..1]}/#{sha[2..-1]}", "wb") do |f|
+      f.write(Zlib::Deflate.deflate(blob))
+    end
+    print sha
+    $stdout.flush
   end
 end
