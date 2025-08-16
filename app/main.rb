@@ -2,6 +2,7 @@
 
 require_relative "commands/init"
 require_relative "commands/cat_file"
+require_relative "commands/hash_object"
 
 # Uncomment this block to pass the first stage
 #
@@ -11,6 +12,8 @@ when "init"
   Commands.init
 when "cat-file"
   Commands.cat_file(ARGV[1], ARGV[2])
+when "hash-object"
+  Commands.hash_object(ARGV[1], ARGV[2])
 else
   raise RuntimeError.new("Unknown command #{command}")
 end
